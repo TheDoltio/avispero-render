@@ -13,8 +13,11 @@ def recibir_datos():
     if not data:
         return jsonify({"error": "JSON no válido"}), 400
 
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    filename = f"data_{timestamp}.json"
+    id = data.get("ID")
+    name = data.get("Name")
+    date = data.get("Fecha")
+    hour = data.get("Hora")
+    filename = f"{id}_{name}_{date}_{hour}.json"
     filepath = os.path.join(DATA_DIR, filename)
 
     with open(filepath, "w") as f:
