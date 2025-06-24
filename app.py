@@ -7,6 +7,10 @@ app = Flask(__name__)
 DATA_DIR = "jsons"
 os.makedirs(DATA_DIR, exist_ok=True)
 
+@app.route("/ping", methods=["GET"])
+def ping():
+    return "pong", 200
+
 @app.route("/api/datos", methods=["POST"])
 def recibir_datos():
     data = request.get_json()
