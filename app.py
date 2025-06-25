@@ -34,24 +34,26 @@ def recibir_datos():
 @app.route("/api/pending/<filename>", methods=["GET"])
 def descargar_archivo(filename):
     filepath = os.path.join(DATA_DIR, filename)
-    
+
     if not os.path.exists(filepath):
         return jsonify({"error": "Archivo no encontrado"}), 404
-        
+
     try:
-        response = send_file(filepath, as_attachment=True)
-        
-        @response.call_on_close
-        def eliminar_archivo():
-            try:
-                os.remove(filepath)
-                print(f"Archivo {filename} eliminado tras descarga.")
-            except Exception as e:
-                print(f"No se pudo eliminar {filename}: {e}")
-        
-        return response
+        with open(filepath, "rb") as f:
+            data = f.read()
+
+        os.remove(filepath)
+        print(f"Archivo {filename} eliminado tras descarga.")
+
+        return send_file(
+            path_or_file=io.BytesIO(data),
+            as_attachment=True,
+            download_name=filename,
+            mimetype='application/json'
+        )
+
     except Exception as e:
-        return jsonify({"error": f"No se pudo descargar el archivo: {str(e)}"}), 500
+        return jsonify({"error": f"No se pudo procesar el archivo: {str(e)}"}), 500
 
 
 @app.route("/api/listar", methods=["GET"])
