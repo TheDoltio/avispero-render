@@ -19,7 +19,7 @@ def recibir_datos():
         return jsonify({"error": "JSON no válido"}), 400
         
     Id = data.get("ID")
-    name = data.get("Name")
+    name = data.get("NAME")
     date = data.get("DATE")
     hour = data.get("UTC")
     
