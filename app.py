@@ -20,8 +20,8 @@ def recibir_datos():
         
     Id = data.get("ID")
     name = data.get("Name")
-    date = data.get("Fecha")
-    hour = data.get("Hora")
+    date = data.get("DATE")
+    hour = data.get("UTC")
     
     filename = f"{Id}_{name}_{date}_{hour}.json"
     filepath = os.path.join(DATA_DIR, filename)
