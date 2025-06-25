@@ -24,7 +24,7 @@ def recibir_datos():
     hour = data.get("Hora")
     
     filename = f"{Id}_{name}_{date}_{hour}.json"
-    filepath = os.path.joun(DATA_DIR, filename)
+    filepath = os.path.join(DATA_DIR, filename)
     
     with open(filepath, "w") as f:
         json.dump(data, f)
